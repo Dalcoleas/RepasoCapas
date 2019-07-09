@@ -16,7 +16,7 @@
 <body>
 	<h1>${message}</h1>
 	
-	<form action="">
+	<form action="${pageContext.request.contextPath}/add" method="post">
 		<input name="nombre" id="nombre" type="text" placeholder="Ingrese su nombre">
 		
 		<input name="apellido" id="apellido" type="text" placeholder="Ingrese su apellido">
@@ -30,7 +30,11 @@
 			</c:forEach>
 		</select><br><br>
 		
-		<input type="submit">
+		<input type="submit" value="Guardar"><br><br>
+		
+		<button type="button" onclick="location.href='${pageContext.request.contextPath}/verContribuyentes'"> Ver Contribuyentes</button>
+		
 	</form>
+
 </body>
 </html>

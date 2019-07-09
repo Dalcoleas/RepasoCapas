@@ -20,4 +20,9 @@ public class ImportanciaServiceImpl implements ImportanciaService{
 		return importanciaRepository.findAll();
 	}
 
+	public Importancia findOne(Integer id) {
+		// TODO Auto-generated method stub
+		return importanciaRepository.findById(id).get();
+	}
+
 }

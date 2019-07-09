@@ -1,5 +1,6 @@
 package com.uca.capas.domain;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -19,31 +20,29 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Entity
-@Table (schema="public", name = "contribuyente")
+@Table(schema = "public", name = "contribuyente")
 public class Contribuyente {
-	
+
 	@Id
-	@GeneratedValue(generator="contribuyente_c_contribuyente_seq", strategy = GenerationType.AUTO)
+	@GeneratedValue(generator = "contribuyente_c_contribuyente_seq", strategy = GenerationType.AUTO)
 	@SequenceGenerator(name = "contribuyente_c_contribuyente_seq", sequenceName = "public.contribuyente_c_contribuyente_seq", allocationSize = 1)
-	@Column(name="c_contribuyente")
+	@Column(name = "c_contribuyente")
 	private Integer cContribuyente;
-	
-	
-	@Column(name="s_nombre")
+
+	@Column(name = "s_nombre")
 	private String sNombre;
-	
-	@Column(name="s_apellido")
+
+	@Column(name = "s_apellido")
 	private String sApellido;
-	
-	@Column(name="s_nit")
+
+	@Column(name = "s_nit")
 	private String sNit;
-	
-	@Column(name="f_fecha_ingreso")
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(iso = ISO.DATE)
+
+	@Column(name = "f_fecha_ingreso")
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private Date fIngreso;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
+
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "c_importancia")
 	private Importancia importancia;
 
@@ -57,8 +56,6 @@ public class Contribuyente {
 		this.fIngreso = fIngreso;
 		this.importancia = importancia;
 	}
-	
-	
 
 	public Contribuyente() {
 		super();
@@ -112,6 +109,16 @@ public class Contribuyente {
 	public void setImportancia(Importancia importancia) {
 		this.importancia = importancia;
 	}
-	
-	
+
+	// Delegate para conversion de fecha
+	public String getFechaDelegate() {
+		if (this.fIngreso == null) {
+			return "";
+		} else {
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+			String shortdate = sdf.format(this.fIngreso.getTime());
+			return shortdate;
+		}
+	}
+
 }

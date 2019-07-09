@@ -7,4 +7,6 @@ import com.uca.capas.domain.Importancia;
 public interface ImportanciaService {
 	
 	public List<Importancia> getAll();
+	
+	public Importancia findOne(Integer id);
 }
